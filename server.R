@@ -22,7 +22,8 @@ shinyServer(function(input, output){
   
   output$heat = renderPlotly({
     plot_ly(x = nms, y = nms, z = correlation,
-            key = correlation, type = "heatmap", source = "heatplot", colors = "RdYlGn") %>%
+            key = correlation, type = "heatmap", source = "heatplot", colors = "RdYlGn",
+            height = 600) %>%
       colorbar(limits = c(-1, 1)) %>% 
       layout(xaxis = list(title = ""),
              yaxis = list(title = ""))
@@ -33,10 +34,10 @@ shinyServer(function(input, output){
     if (length(s)) {
       vars <- c(s[["x"]], s[["y"]])
       d <- setNames(features[vars], c("x", "y"))
-      yhat <- fitted(lm(y ~ x, data = d))
+      # yhat <- fitted(lm(y ~ x, data = d))
       plot_ly(d, x = ~x) %>% 
         add_markers(y = ~y) %>% 
-        add_lines(y = ~yhat) %>% 
+        # add_lines(y = ~yhat) %>% 
         layout(xaxis = list(title = s[["x"]]),
                yaxis = list(title = s[["y"]]),
                showlegend = FALSE)
@@ -51,10 +52,13 @@ shinyServer(function(input, output){
   
   output$shsat_dist <- renderPlotly({
     plot_ly(all_shsat, x = ~`School name`, y = ~total_reg,
-            type = "bar", name = "Total Registered", marker = list(color = 'rgb(49,130,189)')) %>% 
+            type = "bar", 
+            name = "Total Registered", 
+            marker = list(color = 'rgb(49,130,189)')) %>% 
       add_trace(y = ~total_took, name = "Total Took", marker = list(color = 'rgb(204,204,204)')) %>% 
-      layout(yaxis= list(title = "Count"), barmode = 'stack',
-             xaxis = list(title = "School", showticklabels = FALSE)
+      layout(yaxis= list(title = "Count"),
+             xaxis = list(title = "School", showticklabels = FALSE),
+             barmode = 'stack'
              )
   })
   

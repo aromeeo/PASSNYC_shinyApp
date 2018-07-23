@@ -1,6 +1,6 @@
 dashboardPage(
 
-  dashboardHeader(title = "NYC DOE \n Schools", titleWidth = 150),
+  dashboardHeader(title = "NYC DOE Schools", titleWidth = 150),
   dashboardSidebar(width = 150,    
     sidebarUserPanel("Alex Romero"),
     sidebarMenu(
@@ -30,8 +30,8 @@ dashboardPage(
       ),
       tabItem(tabName = "correlations",
               fluidRow(
-                column(width = 8,
-                       box(width = NULL ,
+                column(width = 8, 
+                       box(width = NULL, height = 650,
                            plotlyOutput("heat")
                        )
                 ),
