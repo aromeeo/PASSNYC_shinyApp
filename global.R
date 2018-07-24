@@ -14,9 +14,6 @@ passnyc <- read_csv("passnyc.csv")
 
 # load D5 SHSAT sata
 shsat <- read_csv("D5 SHSAT Registrations and Testers.csv")
-# coordinates of shsat schools
-df %>% 
-  select(School_Name, Latitude, Longitude) -> shsat_coords
 
 #icon maker for SHSAT schools
 schoolIcons <- awesomeIcons(
@@ -42,9 +39,13 @@ all_shsat <- left_join(registered, took, by = "School name")
 #joined csv containing SHSAT schools and their stats from passnyc
 df <- inner_join(passnyc, shsat, by = c("Location_Code" = "DBN"))
 
+# coordinates of shsat schools
+shsat_coords <- df %>% 
+  select(School_Name, Latitude, Longitude)
+
 
 #GeoJSON containig DOE districts
-nyc_districts <- readOGR("schoolDistricts.geojson", "OGRGeoJSON", verbose = F)
+#nyc_districts <- readOGR("schoolDistricts.geojson", "OGRGeoJSON", verbose = F)
 
 # create variable with colnames as choice
 vars <- c("Average School Income", "Economic Need Index")
