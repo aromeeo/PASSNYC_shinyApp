@@ -14,6 +14,17 @@ passnyc <- read_csv("passnyc.csv")
 
 # load D5 SHSAT sata
 shsat <- read_csv("D5 SHSAT Registrations and Testers.csv")
+# coordinates of shsat schools
+df %>% 
+  select(School_Name, Latitude, Longitude) -> shsat_coords
+
+#icon maker for SHSAT schools
+schoolIcons <- awesomeIcons(
+  icon = "graduation-cap",
+  iconColor = "blue",
+  library = "fa"
+)
+
 # students who took SHSAT
 took <- shsat %>% 
   group_by(`School name`) %>% 

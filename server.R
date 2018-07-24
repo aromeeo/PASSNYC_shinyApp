@@ -70,6 +70,20 @@ shinyServer(function(input, output){
     shsat
   })
   
+  #Observer function for checkbox controlling visibility of icons representing D5 schools
+  observe({
+    proxy <- leafletProxy("schoolsMap", data = shsat_coords)
+    proxy %>% 
+      clearGroup(group = "Icons")
+    if(input$checkbox) {
+      proxy %>% addAwesomeMarkers(data = shsat_coords, ~shsat_coords$Longitude, ~shsat_coords$Latitude, 
+                                  icon = schoolIcons,
+                                  label = ~shsat_coords$School_Name,
+                                  group = "Icons") 
+      }
+    })
+  
+  # Observer function for color and size options representing school on schoolsMap
   observe({
     colorBy <- input$color
     sizeBy <- input$size
@@ -95,17 +109,17 @@ shinyServer(function(input, output){
       radius <- passnyc[[sizeBy]] * 10
     }
     
-    
     # Change schoolsMap based on changes in size/colorBy
     leafletProxy("schoolsMap", data = passnyc) %>%
-      clearMarkers() %>%
+      clearGroup(group = "schoolMarkers") %>%
       addCircleMarkers(~Longitude, ~Latitude,
                        color = "white",
                        fillColor = ~pal2(colorData), 
                        radius = radius, 
                        fillOpacity = 0.8, 
                        weight = 1, 
-                       popup = ~School_Name) %>% 
+                       popup = ~School_Name,
+                       group = "schoolMarkers") %>% 
       addLegend("bottomleft", pal = pal2, values = colorData, 
                 title = colorBy, 
                 layerId="colorLegend")

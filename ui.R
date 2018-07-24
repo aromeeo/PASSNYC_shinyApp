@@ -1,8 +1,7 @@
 dashboardPage(
-
+  skin = "black",
   dashboardHeader(title = "NYC DOE Schools", titleWidth = 150),
   dashboardSidebar(width = 150,    
-    sidebarUserPanel("Alex Romero"),
     sidebarMenu(
       menuItem("Schools Map", tabName = "schoolsMap", icon = icon("map")),
       menuItem("Correlations", tabName = "correlations", icon = icon("signal")),
@@ -23,7 +22,8 @@ dashboardPage(
                        box(width = NULL,
                          h2("Demographics Explorer"),
                          selectInput("size", h4("Size"), stat, selected = "School_Income_Estimate"),
-                         selectInput("color", h4("Color"), stat2, selected = "Economic_Need_Index")
+                         selectInput("color", h4("Color"), stat2, selected = "Economic_Need_Index"),
+                         checkboxInput("checkbox", label = "Schools Taking SHSAT", value = TRUE)
                          )
                 )
               )
