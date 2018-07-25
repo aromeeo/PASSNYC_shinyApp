@@ -20,6 +20,8 @@ shinyServer(function(input, output){
       setView(lng = -73.93479, lat = 40.69293, zoom = 11)
   })
   
+  
+  
   output$heat = renderPlotly({
     plot_ly(x = nms, y = nms, z = correlation,
             key = correlation, type = "heatmap", source = "heatplot", colors = "RdYlGn",

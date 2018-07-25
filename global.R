@@ -3,9 +3,6 @@ library(tidyr)
 library(readr)
 library(DT)
 library(leaflet)
-library(sp)
-library(httr)
-library(rgdal)
 library(plotly)
 library(shinydashboard)
 
@@ -28,14 +25,17 @@ took <- shsat %>%
   select(`Number of students who took the SHSAT`) %>% 
   summarise(total_took = sum(`Number of students who took the SHSAT`)) %>% 
   arrange(desc(total_took))
+
 # students who registered
 registered <- shsat %>% 
   group_by(`School name`) %>% 
   select(`Number of students who registered for the SHSAT`) %>% 
   summarise(total_reg = sum(`Number of students who registered for the SHSAT`)) %>% 
   arrange(desc(total_reg))
+
 #merge both took and registered
 all_shsat <- left_join(registered, took, by = "School name")
+
 #joined csv containing SHSAT schools and their stats from passnyc
 df <- inner_join(passnyc, shsat, by = c("Location_Code" = "DBN"))
 
@@ -44,7 +44,7 @@ shsat_coords <- df %>%
   select(School_Name, Latitude, Longitude)
 
 
-#GeoJSON containig DOE districts
+#GeoJSON containig DOE districts -- I didn't use this, it was ugly.
 #nyc_districts <- readOGR("schoolDistricts.geojson", "OGRGeoJSON", verbose = F)
 
 # create variable with colnames as choice
@@ -69,7 +69,7 @@ stat2 <- c(
 
 # calculate correlationss for features
 passnyc %>% 
-  select(10:20, 22, 24, 26, 28, 30) %>% 
+  select(10:20, 22, 24, 26, 28, 30, 33, 34) %>% 
   na.omit() -> features
 
 correlation <- round(cor(features), 3)
@@ -83,4 +83,11 @@ passnyc %>%
             med_AvgIncome = median(School_Income_Estimate, na.rm = TRUE),
             med_Hisp = median(Percent_Hispanic, na.rm = TRUE)) -> medians
 
+# # create df for proficiency by race -- not used -- misleading
+# passnyc %>% 
+#   select(School_Name, Asian = Percent_Asian, Black = Percent_Black, 
+#          Hispanic = Percent_Hispanic, White = Percent_White, 
+#          Average_ELA_Proficiency, Average_Math_Proficiency) %>% 
+#   gather(key = 'race', value = 'score', 
+#          Asian, White, Black, Hispanic) -> subject_scores
 
