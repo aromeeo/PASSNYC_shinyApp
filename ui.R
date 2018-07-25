@@ -74,7 +74,8 @@ dashboardPage(
                 ),
                 column(width = 4, 
                        box(width = NULL,
-                         plotlyOutput("corrs")
+                           h5("Click a correlation on the heatmap to view scatter plot."),
+                           plotlyOutput("corrs")
                        )
                 )
               )
