@@ -7,7 +7,6 @@ dashboardPage(
       menuItem("Welcome Page", tabName = "welcomePage"),
       menuItem("Schools Map", tabName = "schoolsMap", icon = icon("map")),
       menuItem("Correlations", tabName = "correlations", icon = icon("signal")),
-      menuItem("Math and ELA", tabName = "subjectratings", icon = icon("clipboard")),
       menuItem("SHSAT EDA", tabName = "shsat", icon = icon("graduation-cap")),
       menuItem("Data Explorer", tabName = "data", icon = icon("table")))
     ),
@@ -86,7 +85,7 @@ dashboardPage(
                        )
                 ),
                 column(width = 6,
-                       box(width = NULL,
+                       box(width = NULL, height = 650,
                            plotlyOutput("shsat_dist")
                        )
                 )
@@ -97,8 +96,6 @@ dashboardPage(
                 column(width = 9,
                        DT::dataTableOutput("passNYC")
                 )
-                # column(width = 3,
-                #        DT::dataTableOutput("shsat"))
               )
       )
     )

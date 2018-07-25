@@ -56,12 +56,14 @@ shinyServer(function(input, output){
     plot_ly(all_shsat, x = ~`School name`, y = ~total_reg,
             type = "bar", 
             name = "Total Registered", 
-            marker = list(color = 'rgb(49,130,189)')) %>% 
-      add_trace(y = ~total_took, name = "Total Took", marker = list(color = 'rgb(204,204,204)')) %>% 
-      layout(yaxis= list(title = "Count"),
+            marker = list(color = 'Blue'),
+            height = 600) %>% 
+      add_trace(y = ~total_took, name = "Total Took", marker = list(color = 'Red')) %>% 
+      layout(yaxis= list(title = "Count", showticklabels = FALSE),
              xaxis = list(title = "School", showticklabels = FALSE),
-             barmode = 'stack'
-             )
+             barmode = 'dodge'
+             ) %>% 
+    layout(legend = list(x = 0.1, y = 0.9))
   })
   
   output$passNYC <- DT::renderDataTable({
