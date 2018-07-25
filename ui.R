@@ -52,6 +52,8 @@ dashboardPage(
                 column(width = 4,
                        box(width = NULL,
                          h2("Demographics Explorer"),
+                         h5("Select a feature to color and size by to initiate map."),
+
                          selectInput("size", h4("Size"), stat, selected = "School_Income_Estimate"),
                          selectInput("color", h4("Color"), stat2, selected = "Economic_Need_Index"),
                          checkboxInput("checkbox", label = "Schools Taking SHSAT", value = TRUE),
